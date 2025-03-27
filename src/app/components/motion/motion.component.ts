@@ -9,14 +9,18 @@ import { MotionData } from './Model/MotionData.model';
 })
 export class MotionComponent implements OnInit, OnDestroy {
   
+  stepCount: number = 0;
+  isStepDetected: boolean = false;
+
   constructor(private motionS: MotionService) {}
 
   motionData: MotionData = {};
 
   ngOnInit(): void {
     this.motionS.startMotionDetection((data: MotionData) => {
-      this.motionData = data;
-      console.log('Motion Data:', this.motionData);
+        this.motionData = data;
+        this.stepCount = data.stepCount || 0; // Use the stepCount from the data or default to 0
+        this.isStepDetected = data.isStepDetected || false; // Update isStepDetected based on data
     });
   }
 
