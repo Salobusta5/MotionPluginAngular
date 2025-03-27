@@ -11,6 +11,8 @@ export class MotionComponent implements OnInit, OnDestroy {
   
   stepCount: number = 0;
   isStepDetected: boolean = false;
+  angle: number = 0;
+  inclinationAngle: number = 0;
 
   constructor(private motionS: MotionService) {}
 
@@ -21,6 +23,8 @@ export class MotionComponent implements OnInit, OnDestroy {
         this.motionData = data;
         this.stepCount = data.stepCount || 0; // Use the stepCount from the data or default to 0
         this.isStepDetected = data.isStepDetected || false; // Update isStepDetected based on data
+        this.angle = data.angle || 0;
+        this.inclinationAngle = data.inclinationAngle || 0;
     });
   }
 

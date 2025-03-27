@@ -16,7 +16,9 @@
             <p>Gamma: {{ motionData.rotation?.gamma ?? 'No data' }}°</p>
         </div>
     </div>
-
+    <div class="sensor-section">
+        <p>Angulo de inclinación: {{ inclinationAngle }}°</p>
+    </div>
     <p>Pasos: {{ stepCount }}</p>
     <p>Paso detectado: {{ isStepDetected ? 'Sí' : 'No' }}</p>
 </div>

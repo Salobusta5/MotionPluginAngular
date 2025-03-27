@@ -16,6 +16,7 @@ export class MotionService {
   private stepTimeout: number = 300; // Adjust this value based on testing
   private lastStepTime: number = 0;
   private motionData: MotionData = {};
+  public inclinationAngle: number = 0;
 
   constructor() {}
 
@@ -24,6 +25,7 @@ export class MotionService {
       this.processAccelerationData(event.acceleration);
       this.motionData.acceleration = event.acceleration;
       this.motionData.stepCount = this.stepCount;
+      this.calculateInclinationAngle(event.acceleration);
       callback(this.motionData);
     });
   }
@@ -71,6 +73,20 @@ export class MotionService {
     }
     return false;
   }
+
+
+  private calculateInclinationAngle(acceleration: { x: number; y: number; z: number }) {
+    // Calculate the inclination angle using the x and z axis data
+    // Avoid division by zero
+    if (acceleration.z !== 0) {
+      this.inclinationAngle = Math.atan(acceleration.x / acceleration.z) * (180 / Math.PI);
+      if (acceleration.z < 0) {
+         this.inclinationAngle = this.inclinationAngle + 180;
+      }
+    }
+    console.log(`Inclination Angle: ${this.inclinationAngle.toFixed(2)} degrees`);
+  }
+
 
   private resetStepCount() {
     this.stepCount = 0;

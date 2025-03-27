@@ -3,4 +3,6 @@ export interface MotionData {
     rotation?: { alpha: number; beta: number; gamma: number };
     stepCount?: number;
     isStepDetected?: boolean;
+    angle?: number;
+    inclinationAngle?: number;
   }
