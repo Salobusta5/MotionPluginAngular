@@ -1,29 +1,131 @@
+
 .sensor-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    gap: 5px;
+    padding: 5px;
+    background: linear-gradient(to bottom, #000000, #333333); 
+    color: #ffffff; 
+    text-align: center;
+    font-family: 'Helvetica Neue', sans-serif;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    
+    animation: fadeIn 1s ease-out;
+    width: 60%;
+    max-width: 400px;
+    border-radius: 20px;
+    margin: 10px auto;
+    
+    display: flex;
+    .steps-section {
+        width: 100%;
+        flex-grow: 2;
+    }
+    
+    .enca{
+        color: #ffffff;
+        background: linear-gradient(to right, #ff1493, #c71585);
+        padding: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        max-width: 100%; 
+        margin-left: 0;
+        position: static;
+        transform: none;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 0px;
 
-  .sensor-section {
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-    h2 {
-      color: #333;
-      margin-bottom: 15px;
+        h1{
+            text-align: center;
+            font-size: 1.5em;
+            padding: 5px;
+            margin: 5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            
+            
+        }
+    }    
+    .accelerometer-section{
+        width: 100%;
+        flex-grow: 0.5;
     }
 
-    .sensor-data {
-      display: grid;
-      gap: 10px;
+    .sensor-section{
+        background: linear-gradient(to bottom right, #7a3c66, #982c67);
+        border-radius: 15px;
+        padding: 5px;
+        gap: 5px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        border: none;
+        width: 50%;
 
-      p {
-        margin: 0;
-        font-size: 16px;
-        color: #666;
-      }
+        h2 {
+            color: #ffffff; 
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: 1px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .sensor-data {
+            display: flex;
+            flex-direction: column;
+            gap: 3 px;
+            text-align: center;
+            margin: 0;
+            p {
+                font-size: 16px;
+                color: #e8e8e8;
+                line-height: 1.2;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+
+                strong {
+                    font-weight: 700;
+                    color: #ff69b4;
+                }
+            }
+        }
     }
-  }
+    
+    button {
+        padding: 12px 25px;
+        background: linear-gradient(to right, #ff1493, #c71585); 
+        color: #ffffff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+    }
+    
+}
+
+@media (max-width: 768px) {
+    .sensor-container {
+        width: 95%;
+        margin: 5px;
+        padding: 5px;
+        .enca{
+            h1{
+               font-size: 1.5em; 
+            }
+        }
+        .sensor-section{
+            width: 90%;
+            gap: 5px;
+        }
+    }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

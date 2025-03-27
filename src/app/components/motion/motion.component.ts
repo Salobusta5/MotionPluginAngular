@@ -41,6 +41,7 @@ export class MotionComponent implements OnInit, OnDestroy {
 
   resetSteps() {
     this.stepCount = 0;
+    this.motionData.stepCount = 0;
   }
   private delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));

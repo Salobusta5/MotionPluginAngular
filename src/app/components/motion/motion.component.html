@@ -1,4 +1,11 @@
 <div class="sensor-container">
+  <div class="enca">
+  <h1>Cuenta tus pasos</h1></div>
+  <p>Hoy has caminado: {{ stepCount }} pasos</p>
+  
+  <div>
+      <button (click)="resetSteps()">Volver a Caminar </button>
+  </div>
     <div class="sensor-section">
         <h2>Acelerómetro</h2>
         <div class="sensor-data">
@@ -8,18 +15,7 @@
         </div>
     </div>
 
-    <div class="sensor-section">
-        <h2>Giroscopio</h2>
-        <div class="sensor-data">
-            <p>Alpha: {{ motionData.rotation?.alpha ?? 'No data' }}°</p>
-            <p>Beta: {{ motionData.rotation?.beta ?? 'No data' }}°</p>
-            <p>Gamma: {{ motionData.rotation?.gamma ?? 'No data' }}°</p>
-        </div>
-    </div>
+ 
 
-    <p>Steps: {{ stepCount }}</p>
-    <p>Step Detected: {{ isStepDetected ? 'Yes' : 'No' }}</p>
-    <div>
-        <button (click)="resetSteps()">Reset Steps</button>
-    </div>
+   
 </div>
