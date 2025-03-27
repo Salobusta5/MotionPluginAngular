@@ -1,26 +1,19 @@
 <div class="sensor-container">
-    <div class="sensor-section">
-        <h2>Acelerómetro</h2>
-        <div class="sensor-data">
-            <p>X: {{ motionData.acceleration?.x ?? 'No data' }}</p>
-            <p>Y: {{ motionData.acceleration?.y ?? 'No data' }}</p>
-            <p>Z: {{ motionData.acceleration?.z ?? 'No data' }}</p>
-        </div>
+  <div class="sensor-section">
+    <h2>Aceleróetro</h2>
+    <div class="sensor-data">
+      <p>X: {{motionData.acceleration?.x ?? 'No data'}}</p>
+      <p>Y: {{motionData.acceleration?.y ?? 'No data'}}</p>
+      <p>Z: {{motionData.acceleration?.z ?? 'No data'}}</p>
     </div>
+  </div>
 
-    <div class="sensor-section">
-        <h2>Giroscopio</h2>
-        <div class="sensor-data">
-            <p>Alpha: {{ motionData.rotation?.alpha ?? 'No data' }}°</p>
-            <p>Beta: {{ motionData.rotation?.beta ?? 'No data' }}°</p>
-            <p>Gamma: {{ motionData.rotation?.gamma ?? 'No data' }}°</p>
-        </div>
+  <div class="sensor-section">
+    <h2>Giroscopio</h2>
+    <div class="sensor-data">
+      <p>Alpha: {{motionData.rotation?.alpha ?? 'No data'}}°</p>
+      <p>Beta: {{motionData.rotation?.beta ?? 'No data'}}°</p>
+      <p>Gamma: {{motionData.rotation?.gamma ?? 'No data'}}°</p>
     </div>
-
-    <div class="sensor-section">
-        <p>Angulo de inclinación: {{ inclinationAngle }}°</p>
-    </div>
-
-    <p>Pasos: {{ stepCount }}</p>
-    <p>Paso detectado: {{ isStepDetected ? 'Sí' : 'No' }}</p>
-    </div>
+  </div>
+</div>

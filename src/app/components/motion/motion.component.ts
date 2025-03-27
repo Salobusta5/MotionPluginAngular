@@ -1,32 +1,26 @@
-import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MotionService } from './Services/motion.service';
 import { MotionData } from './Model/MotionData.model';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-motion',
   templateUrl: './motion.component.html',
   styleUrl: './motion.component.scss'
 })
-export class MotionComponent implements OnInit, OnDestroy{
-
+export class MotionComponent implements OnInit, OnDestroy {
+  
   stepCount: number = 0;
-  motionData: MotionData = {stepCount: 0, isStepDetected: false};
   isStepDetected: boolean = false;
-  inclinationAngle: number = 0; 
 
-  private inclinationSubscription: Subscription | undefined;
-  private stepDetectionSubscription: Subscription | undefined;
+  constructor(private motionS: MotionService) {}
 
-  constructor(private motionS: MotionService) { }
+  motionData: MotionData = {};
 
   ngOnInit(): void {
-    this.inclinationSubscription = this.motionS.inclinationAngle$.subscribe(angle => {
-      this.inclinationAngle = angle;
-    });
-
-    this.stepDetectionSubscription = this.motionS.motionData$.subscribe((data: MotionData) => {
+    this.motionS.startMotionDetection((data: MotionData) => {
         this.motionData = data;
+        this.stepCount = data.stepCount || 0; // Use the stepCount from the data or default to 0
+        this.isStepDetected = data.isStepDetected || false; // Update isStepDetected based on data
     });
   }
 

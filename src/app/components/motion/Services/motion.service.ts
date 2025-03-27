@@ -1,14 +1,14 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { Motion } from '@capacitor/motion';
 import { PluginListenerHandle } from '@capacitor/core';
 import { MotionData } from '../Model/MotionData.model';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class MotionService {
-  public inclinationAngle$: EventEmitter<number> = new EventEmitter<number>();
   private accelListener?: PluginListenerHandle;
   private stepCount: number = 0;
   private lastAccelData: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
@@ -16,19 +16,14 @@ export class MotionService {
   private stepTimeout: number = 300; // Adjust this value based on testing
   private lastStepTime: number = 0;
   private motionData: MotionData = {};
-  public motionData$: Subject<MotionData> = new Subject<MotionData>();
-  
 
   constructor() {}
 
   async startMotionDetection(callback: (data: MotionData) => void) {
     this.accelListener = await Motion.addListener('accel', (event) => {
       this.processAccelerationData(event.acceleration);
-      this.motionData.acceleration = event.acceleration;      
+      this.motionData.acceleration = event.acceleration;
       this.motionData.stepCount = this.stepCount;
-      this.motionData.isStepDetected = this.isStep(event.acceleration);
-      this.calculateInclinationAngle(event.acceleration);      
-      this.motionData$.next(this.motionData);
       callback(this.motionData);
     });
   }
@@ -76,24 +71,6 @@ export class MotionService {
     }
     return false;
   }
-
-
-  private calculateInclinationAngle(acceleration: { x: number; y: number; z: number }) {
-    // Avoid division by zero and handle cases where z might be close to zero
-    if (Math.abs(acceleration.z) < 0.01) {
-      this.inclinationAngle$.emit(90); // Or -90 depending on the sign of x
-      return;
-    }
-    let angle = Math.atan(acceleration.x / acceleration.z) * (180 / Math.PI);
-    if (acceleration.z < 0) {
-      angle = angle + 180;
-    }
-    
-    this.inclinationAngle$.emit(angle); // Emit the calculated angle
-    
-    console.log(`Inclination Angle: ${angle.toFixed(2)} degrees`);
-  }
-
 
   private resetStepCount() {
     this.stepCount = 0;
