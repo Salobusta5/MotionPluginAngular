@@ -19,6 +19,7 @@ export class MotionComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.motionS.startMotionDetection(async (data: MotionData) => {
+      console.log('Motion data received:', data);
         this.motionData = data;
         this.stepCount = data.stepCount || 0; // Use the stepCount from the data or default to 0
 
@@ -42,6 +43,8 @@ export class MotionComponent implements OnInit, OnDestroy {
   resetSteps() {
     this.stepCount = 0;
     this.motionData.stepCount = 0;
+    this.cdRef.detectChanges();
+    console.log('Steps reset to zero.');
   }
   private delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
