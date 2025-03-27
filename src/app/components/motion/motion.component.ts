@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+
 import { MotionService } from './Services/motion.service';
 import { MotionData } from './Model/MotionData.model';
 
@@ -12,19 +13,36 @@ export class MotionComponent implements OnInit, OnDestroy {
   stepCount: number = 0;
   isStepDetected: boolean = false;
 
-  constructor(private motionS: MotionService) {}
+  constructor(private motionS: MotionService, private cdRef: ChangeDetectorRef) {}
 
-  motionData: MotionData = {};
+  motionData: MotionData = {stepCount: 0, isStepDetected: false};
 
   ngOnInit(): void {
-    this.motionS.startMotionDetection((data: MotionData) => {
+    this.motionS.startMotionDetection(async (data: MotionData) => {
         this.motionData = data;
         this.stepCount = data.stepCount || 0; // Use the stepCount from the data or default to 0
-        this.isStepDetected = data.isStepDetected || false; // Update isStepDetected based on data
+
+        if (data.isStepDetected) {
+          this.isStepDetected = true;
+          this.cdRef.detectChanges(); // Manually trigger change detection
+          await this.delay(500); // Wait for 500 milliseconds
+          this.isStepDetected = false;
+          this.cdRef.detectChanges(); // Manually trigger change detection
+        } else {
+          this.isStepDetected = false;
+          this.cdRef.detectChanges(); // Manually trigger change detection
+        }
     });
   }
 
   ngOnDestroy(): void {
     this.motionS.stopMotionDetection();
+  }
+
+  resetSteps() {
+    this.stepCount = 0;
+  }
+  private delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
